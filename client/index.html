@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>chatterbox</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="styles/styles.css">
+
+    <!-- dependencies -->
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/he/he.js"></script>
+
+    <!-- your scripts -->
+    <script src="env/config.js"></script>
+    <script src="scripts/quotes.js"></script>
+    <script src="scripts/app.js"></script>
+  </head>
+  <body>
+    <aside id="sidebar">
+      <h1>chatterbox</h1>
+      <div id="send">
+        <input id="user" type="text" placeholder="Enter username">
+        <input id="room" type="text" placeholder="Enter room here">
+        <textarea id="message" type="text" placeholder="Enter message here"></textarea>
+        <div id="send-message" class="submit button">Send message</div>
+      </div>
+      <p id="status"></p>
+
+      <!-- Room Select -->
+      <h3 class="sidebar-title">rooms</h3>
+      <select id="roomSelect">
+        <option class="uppercase">Select Room</option>
+        <option>Global</option>
+      </select>
+
+      <h3 class="sidebar-title">friends</h3>
+      <ul id="friends">
+        <li class="friends-list-item">Global</li>
+      </ul>
+    </aside>
+
+    <section id="main">
+      <!-- Your HTML goes here! -->
+      <div id="chats"></div>
+    </section>
+  </body>
+</html>

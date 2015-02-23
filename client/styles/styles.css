@@ -1,0 +1,256 @@
+body {
+    background: url('../images/school.png') #eee;
+    color: #222;
+    font-family: "Lato", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+.text-right {
+  text-align: right;
+}
+
+h1 {
+  color: #fff;
+  font-size: 2em;
+}
+
+#main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 248px;
+}
+
+#status {
+  font-size: 0.7em;
+}
+
+.success {
+  color: #7DE5DD;
+}
+
+.failure {
+  color: red;
+}
+
+/***************
+Input Fields
+****************/
+input, textarea {
+  display: block;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  width: 200px;
+  font-size: 0.8em;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  border: 1px solid #fff9e6;
+  border-radius: 2px;
+}
+
+.button {
+  padding: 0.5em;
+  width: 202px;
+  background: #7DE5DD;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 2px;
+  box-shadow: 1px 1px 2px #5a5a5a;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+/***************
+Message Styling
+****************/
+.message {
+  padding: 0.5em 1em;
+}
+
+.message:nth-child(odd) {
+  background: #fff9e6;
+  background: rgba(255, 249, 232, 0.5);
+}
+
+.username {
+  font-size: 0.8em;
+  padding: 0.2em 0.5em;
+  color: #fff;
+  background: #6A5A7E;
+  text-shadow: -1px -1px 1px #6f6f6f;
+  border-radius: 6px;
+}
+
+.roomname {
+  font-size: 0.7em;
+  color: #6A5A7E;
+}
+
+.text {
+  font-size: 1.5em;
+  font-weight: 300;
+  margin: 0.5em 0;
+}
+
+.friend {
+  background: #7DE5DD;
+  text-shadow: none;
+}
+
+/***************
+ Sidebar
+****************/
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  padding: 1em;
+  width: 216px;
+  color: #fff;
+  background: #444;
+  background: rgba(4, 4, 4, 0.5);
+  z-index: 100;
+  box-shadow: 1px 0 2px #222;
+}
+
+.sidebar-title {
+  margin: 2em 0 0.5em 0;
+}
+
+#friends {
+  list-style: none;
+  margin: 0 0 0 -42px;
+}
+
+.friends-list-item {
+  display: block;
+  padding: 0.5em 0;
+  border-width: 1px 0 0 0;
+  border-color: #7e7e7e;
+  border-style: solid;
+}
+
+#roomSelect {
+  font-family: "Lato", Helvetica, Arial, sans-serif;
+  font-size: 0.8em;
+  letter-spacing: 0.05em;
+  border: 1px solid #7e7e7e;
+  color: #7de5dd;
+  background: transparent;
+  width: 216px;
+  text-transform: uppercase;
+}
+
+/***************
+ Layout
+****************/
+.row {
+  *zoom: 1;
+}
+.row:before,
+.row:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.row:after {
+  clear: both;
+}
+[class*="col"] {
+  float: left;
+  min-height: 1px;
+  margin-left: 2.75%;
+}
+[class*="col"]:first-child {
+  margin-left: 0;
+}
+[class*="col"].right {
+  float: right;
+}
+.row.centered {
+  text-align: center;
+}
+.row.centered [class*="col"], [class*="col"].center {
+  float: none;
+  display: inline-block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.col1 {width: 5.8125%;}
+.col2 {width: 14.375%;}
+.col3 {width: 22.9375%;}
+.col4 {width: 31.5%;}
+.col5 {width: 40.0625%;}
+.col6 {width: 48.625%;}
+.col7 {width: 57.1875%;}
+.col8 {width: 65.75%;}
+.col9 {width: 74.3125%;}
+.col10 {width: 82.875%;}
+.col11 {width: 91.4375%;}
+.col12 {width: 100%;}
+
+/***************
+ Mobile Responsive Styles
+****************/
+@media (max-width: 550px) {
+  body {
+    margin: 0;
+  }
+
+  #sidebar {
+    position: relative;
+    width: 250px;
+    display: block;
+    margin: 0 auto;
+    height: 300px;
+    padding: 0px;
+    top: 10px;
+    border-radius: 4px;
+  }
+
+  #sidebar h1 {
+    margin-top: 0px;
+    padding-top: 5px;
+    text-align: center;
+  }
+
+  #main {
+    left: 0;
+    top: 325px;
+  }
+
+  div#send {
+    width: 215px;
+    margin: 0 auto;
+  }
+
+  p#status {
+    text-align: center;
+  }
+
+  #roomSelect {
+    display: block;
+    margin: 0 auto;
+  }
+
+  input {
+  }
+}
