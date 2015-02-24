@@ -52,10 +52,10 @@ var app = {
     // iterate through message array (containing message objects)
     for (var i = 0; i < messages.length; i++) {
       var friendClass = 'enemy';
-      var message = messages[i];
-      var username = this.cleanData(message.username);
-      var text = this.cleanData(message.text);
-      var roomname = this.cleanData(message.roomname);
+      var msg = messages[i];
+      var username = this.cleanData(msg.username);
+      var text = this.cleanData(msg.message);
+      var roomname = this.cleanData(msg.roomname);
 
       if (username in this.friends) {
         friendClass = 'friend';
@@ -129,23 +129,22 @@ var app = {
     });
   },
 
-  send: function(message) {
+  send: function(msg) {
     var context = this;
     console.log("Sent!");
 
     var defaults = {
       username : $('#user').val(),
-      text: $('#message').val(),
+      message: $('#message').val(),
       roomname: $('#room').val()
     };
 
-    console.log(typeof message);
-    var message = message || defaults;
+    var msg = msg || defaults;
 
     $.ajax({
       url: context.server,
       type: 'POST',
-      data: JSON.stringify(message),
+      data: JSON.stringify(msg),
       contentType: 'application/json',
       success: function() {
         $('#status').text('Your message was successfully sent!')

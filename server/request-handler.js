@@ -12,7 +12,7 @@ this file and include it in basic-server.js so that it actually works.
 
 **************************************************************/
 var exports = module.exports = {};
-var message = {results: []};
+var message = {};
 
 exports.requestHandler = function(request, response) {
   // Request and Response come from node's http module.
@@ -49,8 +49,18 @@ exports.requestHandler = function(request, response) {
     response.writeHead(statusCode, headers);
     response.end();
   } else if (request.method === 'GET') {
-    response.writeHead(statusCode, headers);
-    response.end(JSON.stringify(message));
+    if (request.url === '/arglebargle') {
+      response.writeHead(404, headers);
+      response.end();
+    } else {
+      if(message[request.url] === undefined){
+        message[request.url] = {};
+        message[request.url].results = [];
+      }
+
+      response.writeHead(statusCode, headers);
+      response.end(JSON.stringify(message[request.url]));
+    }
   } else if(request.method === 'POST'){
     var currentMessage = '';
     request.on('data', function(chunk){
@@ -58,16 +68,22 @@ exports.requestHandler = function(request, response) {
     });
     request.on('end', function() {
       response.writeHead(201, headers);
-      message.results.push(JSON.parse(currentMessage));
+      if(message[request.url] === undefined){
+        message[request.url] = {};
+        message[request.url].results = [];
+      }
+      message[request.url].results.push(JSON.parse(currentMessage));
       response.end(currentMessage);
     });
-  } else if(request.method !== 'DELETE' && request.method !== 'PUT'){
+  } else {
     response.writeHead(404, headers);
     response.end();
   }
+
+
+
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
-  //response.writeHead(statusCode, headers);
   // Make sure to always call response.end() - Node may not send
   // anything back to the client until you do. The string you pass to
   // response.end() will be the body of the response - i.e. what shows
@@ -75,10 +91,8 @@ exports.requestHandler = function(request, response) {
   //
   // Calling .end "flushes" the response's internal buffer, forcing
   // node to actually send all the data over to the client.
-
-  //response.end('I am out');
-
 };
+
 
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).
