@@ -1,15 +1,15 @@
 var app = {
-  lastCreated: '2015-02-17T00:50:32.494Z',
+  lastCreated: 'Mon Feb 23 2015 15:36:52 GMT-0800 (PST)',
   currentRoom: undefined,
-  server: 'https://api.parse.com/1/classes/chatterbox',
+  server: 'http://127.0.0.1:3000/classes/messages',
   rooms: {},
   friends: {},
 
   init: function() {
     var context = this;
-    setInterval(function() {
+    //setInterval(function() {
       context.fetch();
-    }, 2000);
+    //}, 2000);
 
     var filterRoom = function() {
       var $element = $(this);
@@ -95,31 +95,31 @@ var app = {
   fetch: function() {
     var context = this;
 
-    var where = {
-      createdAt: {
-        '$gt': context.lastCreated
-      }
-    };
+    // var where = {
+    //   createdAt: {
+    //     '$gt': context.lastCreated
+    //   }
+    // };
     // extend where defaults
-    if (context.currentRoom !== undefined) {
-      _.extend(where, {roomname: context.currentRoom});
-    }
+    // if (context.currentRoom !== undefined) {
+    //   _.extend(where, {roomname: context.currentRoom});
+    // }
 
-    var data = {
-      order: '-createdAt',
-      where: where
-    };
+    // var data = {
+    //   order: '-createdAt',
+    //   where: where
+    // };
 
     $.ajax({
       url: context.server,
       type: 'GET',
-      data: data,
+      // data: data,
       success: function(response) {
         var messages = response.results;
 
-        if (messages[0] !== undefined) {
-          context.lastCreated = messages[0].createdAt; // get most up-to-date timestamp
-        }
+        // if (messages[0] !== undefined) {
+        //   context.lastCreated = messages[0].createdAt; // get most up-to-date timestamp
+        // }
         context.addNewRooms(messages);
         context.displayMessages(messages);
       },
@@ -150,10 +150,13 @@ var app = {
       success: function() {
         $('#status').text('Your message was successfully sent!')
                     .addClass('success');
+        console.log('successfully posted to server');
+        context.fetch();
       },
       error: function() {
         $('#status').text('Your message failed :(')
                     .addClass('failure');
+        console.log('failed to post to server');
       }
     });
   },

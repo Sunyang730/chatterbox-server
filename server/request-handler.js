@@ -12,6 +12,7 @@ this file and include it in basic-server.js so that it actually works.
 
 **************************************************************/
 var exports = module.exports = {};
+var message = {results: []};
 
 exports.requestHandler = function(request, response) {
   // Request and Response come from node's http module.
@@ -28,7 +29,9 @@ exports.requestHandler = function(request, response) {
   // Adding more logging to your server can be an easy way to get passive
   // debugging help, but you should always be careful about leaving stray
   // console.logs in your code.
+  request.path = '/classes/messages';
   console.log("Serving request type " + request.method + " for url " + request.url);
+
 
   // The outgoing status.
   var statusCode = 200;
@@ -40,12 +43,28 @@ exports.requestHandler = function(request, response) {
   //
   // You will need to change this if you are sending something
   // other than plain text, like JSON or HTML.
-  headers['Content-Type'] = "text/plain";
+  headers['Content-Type'] = "application/json";
 
+  if (request.method === 'OPTIONS'){
+    response.writeHead(statusCode, headers);
+    response.end();
+  } else if (request.method === 'GET') {
+    response.writeHead(statusCode, headers);
+    response.end(JSON.stringify(message));
+  } else if(request.method === 'POST'){
+    var currentMessage = '';
+    request.on('data', function(chunk){
+      currentMessage += chunk;
+    });
+    request.on('end', function() {
+      response.writeHead(statusCode, headers);
+      message.results.push(JSON.parse(currentMessage));
+      response.end(currentMessage);
+    });
+  }
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
-  response.writeHead(statusCode, headers);
-
+  //response.writeHead(statusCode, headers);
   // Make sure to always call response.end() - Node may not send
   // anything back to the client until you do. The string you pass to
   // response.end() will be the body of the response - i.e. what shows
@@ -53,8 +72,11 @@ exports.requestHandler = function(request, response) {
   //
   // Calling .end "flushes" the response's internal buffer, forcing
   // node to actually send all the data over to the client.
-  response.end("Hello, World!");
+
+  //response.end('I am out');
+
 };
+
 
 // These headers will allow Cross-Origin Resource Sharing (CORS).
 // This code allows this server to talk to websites that
@@ -63,7 +85,7 @@ exports.requestHandler = function(request, response) {
 // Your chat client is running from a url like file://your/chat/client/index.html,
 // which is considered a different domain.
 //
-// Another way to get around this restriction is to serve you chat
+// Another way to get around this restriction is to serve your chat
 // client from this domain by setting up static file serving.
 var defaultCorsHeaders = {
   "access-control-allow-origin": "*",
