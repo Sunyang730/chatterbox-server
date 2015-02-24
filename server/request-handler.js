@@ -29,7 +29,7 @@ exports.requestHandler = function(request, response) {
   // Adding more logging to your server can be an easy way to get passive
   // debugging help, but you should always be careful about leaving stray
   // console.logs in your code.
-  request.path = '/classes/messages';
+  request.path = '/';
   console.log("Serving request type " + request.method + " for url " + request.url);
 
 
@@ -57,10 +57,13 @@ exports.requestHandler = function(request, response) {
       currentMessage += chunk;
     });
     request.on('end', function() {
-      response.writeHead(statusCode, headers);
+      response.writeHead(201, headers);
       message.results.push(JSON.parse(currentMessage));
       response.end(currentMessage);
     });
+  } else if(request.method !== 'DELETE' && request.method !== 'PUT'){
+    response.writeHead(404, headers);
+    response.end();
   }
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.

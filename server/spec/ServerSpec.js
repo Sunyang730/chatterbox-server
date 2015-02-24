@@ -23,7 +23,6 @@ describe('Node Server Request Listener Function', function() {
     expect(res._responseCode).to.equal(200);
     expect(res._ended).to.equal(true);
   });
-
   it('Should send back parsable stringified JSON', function() {
     var req = new stubs.request('/classes/room1', 'GET');
     var res = new stubs.response();
@@ -72,7 +71,7 @@ describe('Node Server Request Listener Function', function() {
 
     // Testing for a newline isn't a valid test
     // TODO: Replace with with a valid test
-    // expect(res._data).to.equal(JSON.stringify('\n'));
+    expect(res._data).to.equal(JSON.stringify('\n'));
     expect(res._ended).to.equal(true);
   });
 
